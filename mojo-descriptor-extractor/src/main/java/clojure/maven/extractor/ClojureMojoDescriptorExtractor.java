@@ -1,4 +1,4 @@
-package maven.clojure.extractor;
+package clojure.maven.extractor;
 
 import clojure.lang.RT;
 import clojure.lang.Var;
@@ -48,9 +48,9 @@ public class ClojureMojoDescriptorExtractor
       Var symbol = RT.var("clojure.core", "symbol");
       require.invoke(
         symbol.invoke(
-          "maven.clojure.extractor.clojure-plugin-extractor"));
+          "clojure.maven.extractor.clojure-mojo-extractor"));
       Var plugins = RT.var(
-        "maven.clojure.extractor.clojure-plugin-extractor",
+        "clojure.maven.extractor.clojure-mojo-extractor",
         "plugin-classes");
       return (List) plugins.invoke(request.getPluginDescriptor(), project);
     }

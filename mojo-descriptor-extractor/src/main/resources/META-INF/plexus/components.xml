@@ -7,7 +7,7 @@
     <component>
       <role>org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor</role>
       <role-hint>clojure</role-hint>
-      <implementation>maven.clojure.extractor.ClojureMojoDescriptorExtractor</implementation>
+      <implementation>clojure.maven.extractor.ClojureMojoDescriptorExtractor</implementation>
     </component>
 
   </components>

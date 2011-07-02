@@ -1,4 +1,4 @@
-package maven.clojure.annotations;
+package clojure.maven.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -6,13 +6,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * The name of the plugin's goal.
- */
-@Inherited
+/** A plugin component. */
 @MojoAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface Goal {
-  String value();
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Inherited
+public @interface Component {
+  String role() default "";
+  String roleHint() default "";
 }

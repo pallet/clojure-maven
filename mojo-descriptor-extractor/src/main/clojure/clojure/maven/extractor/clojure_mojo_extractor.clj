@@ -1,4 +1,4 @@
-(ns maven.clojure.extractor.clojure-plugin-extractor
+(ns clojure.maven.extractor.clojure-mojo-extractor
   "Equivalent of JavaMojoDescriptorExtractor in
    org.apache.maven.tools.plugin.extractor.java, but using java annotations
    rather than javadoc annotations."
@@ -8,7 +8,7 @@
    [clojure.pprint :as pprint]
    classlojure)
   (:import
-   [maven.clojure.annotations Goal RequiresDependencyResolution]
+   [clojure.maven.annotations Goal RequiresDependencyResolution]
    [org.apache.maven.plugin.descriptor
     MojoDescriptor
     Parameter
@@ -56,10 +56,10 @@
        cl
        `(let [field-params#
               (fn [^java.lang.reflect.Field field#]
-                (if-let [^maven.clojure.annotations.Parameter parameter#
+                (if-let [^clojure.maven.annotations.Parameter parameter#
                          (.getAnnotation
                           field#
-                          maven.clojure.annotations.Parameter)]
+                          clojure.maven.annotations.Parameter)]
                   {:name (.getName field#)
                    :type (.getName (.getType field#))
                    :parameter {:alias (.alias parameter#)
@@ -68,10 +68,10 @@
                                :editable (not (.readonly parameter#))
                                :required (.required parameter#)
                                :defaultValue (.defaultValue parameter#)}}
-                  (if-let [^maven.clojure.annotations.Component component#
+                  (if-let [^clojure.maven.annotations.Component component#
                            (.getAnnotation
                             field#
-                            maven.clojure.annotations.Component)]
+                            clojure.maven.annotations.Component)]
                     {:name (.getName field#)
                      :type (.getName (.getType field#))
                      :component {:role (.role component#)
