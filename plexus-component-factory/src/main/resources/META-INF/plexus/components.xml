@@ -1,0 +1,9 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.codehaus.plexus.component.factory.ComponentFactory</role>
+      <implementation>plexus.clojure.factory.ClojureComponentFactory</implementation>
+      <role-hint>clojure</role-hint>
+    </component>
+  </components>
+</component-set>

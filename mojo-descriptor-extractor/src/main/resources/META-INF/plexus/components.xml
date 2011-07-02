@@ -1,0 +1,14 @@
+<component-set>
+  <components>
+    <!--
+      ClojureMojoDescriptorExtractor, a MojoDescriptor extractor to read
+      descriptors from clojure sources.
+     -->
+    <component>
+      <role>org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor</role>
+      <role-hint>clojure</role-hint>
+      <implementation>maven.clojure.extractor.ClojureMojoDescriptorExtractor</implementation>
+    </component>
+
+  </components>
+</component-set>
