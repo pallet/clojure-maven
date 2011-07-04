@@ -67,7 +67,8 @@
                                :description (.description parameter#)
                                :editable (not (.readonly parameter#))
                                :required (.required parameter#)
-                               :defaultValue (.defaultValue parameter#)}}
+                               :defaultValue (.defaultValue parameter#)
+                               :typename (.typename parameter#)}}
                   (if-let [^clojure.maven.annotations.Component component#
                            (.getAnnotation
                             field#
@@ -132,7 +133,7 @@
   [field]
   (let [p (doto (Parameter.)
             (.setName (:name field))
-            (.setType (:type field)))]
+            (.setType (or (-> field :parameter :typename) (:type field))))]
     (if-let [component (:component field)]
       (doto p
         (.setRequirement
@@ -145,6 +146,7 @@
         (.setType (-> field :component :role)))
       (when-let [parameter (:parameter field)]
         (doto p
+          (.setImplementation (blank-as-nil (:typename parameter)))
           (.setAlias (blank-as-nil (:alias parameter)))
           (.setExpression (blank-as-nil (:expression parameter)))
           (.setDescription (blank-as-nil (:description parameter)))

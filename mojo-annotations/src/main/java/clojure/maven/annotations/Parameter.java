@@ -19,4 +19,5 @@ public @interface Parameter {
   String alias() default "";
   String expression() default "";
   String defaultValue() default "";
+  String typename() default "";
 }
