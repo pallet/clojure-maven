@@ -1,4 +1,4 @@
-package plexus.clojure.factory;
+package clojure.plexus.factory;
 
 import java.io.IOException;
 import clojure.lang.RT;
@@ -10,9 +10,9 @@ public class ClojureLoader
   {
     Var require = RT.var("clojure.core", "require");
     Var symbol = RT.var("clojure.core", "symbol");
-    require.invoke(symbol.invoke("plexus.clojure.factory.component-factory"));
+    require.invoke(symbol.invoke("clojure.plexus.factory.component-factory"));
     Var instantiate = RT.var(
-      "plexus.clojure.factory.component-factory", "instantiate");
+      "clojure.plexus.factory.component-factory", "instantiate");
     return instantiate.invoke(implementation);
   }
 }

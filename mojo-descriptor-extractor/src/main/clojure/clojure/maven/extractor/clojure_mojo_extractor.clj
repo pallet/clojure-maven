@@ -1,4 +1,4 @@
-(ns maven.clojure.extractor.clojure-plugin-extractor
+(ns clojure.maven.extractor.clojure-mojo-extractor
   "Equivalent of JavaMojoDescriptorExtractor in
    org.apache.maven.tools.plugin.extractor.java, but using java annotations
    rather than javadoc annotations."
@@ -8,7 +8,7 @@
    [clojure.pprint :as pprint]
    classlojure)
   (:import
-   [maven.clojure.annotations Goal RequiresDependencyResolution]
+   [clojure.maven.annotations Goal RequiresDependencyResolution]
    [org.apache.maven.plugin.descriptor
     MojoDescriptor
     Parameter
@@ -56,10 +56,10 @@
        cl
        `(let [field-params#
               (fn [^java.lang.reflect.Field field#]
-                (if-let [^maven.clojure.annotations.Parameter parameter#
+                (if-let [^clojure.maven.annotations.Parameter parameter#
                          (.getAnnotation
                           field#
-                          maven.clojure.annotations.Parameter)]
+                          clojure.maven.annotations.Parameter)]
                   {:name (.getName field#)
                    :type (.getName (.getType field#))
                    :parameter {:alias (.alias parameter#)
@@ -67,11 +67,12 @@
                                :description (.description parameter#)
                                :editable (not (.readonly parameter#))
                                :required (.required parameter#)
-                               :defaultValue (.defaultValue parameter#)}}
-                  (if-let [^maven.clojure.annotations.Component component#
+                               :defaultValue (.defaultValue parameter#)
+                               :typename (.typename parameter#)}}
+                  (if-let [^clojure.maven.annotations.Component component#
                            (.getAnnotation
                             field#
-                            maven.clojure.annotations.Component)]
+                            clojure.maven.annotations.Component)]
                     {:name (.getName field#)
                      :type (.getName (.getType field#))
                      :component {:role (.role component#)
@@ -132,7 +133,7 @@
   [field]
   (let [p (doto (Parameter.)
             (.setName (:name field))
-            (.setType (:type field)))]
+            (.setType (or (-> field :parameter :typename) (:type field))))]
     (if-let [component (:component field)]
       (doto p
         (.setRequirement
@@ -145,6 +146,7 @@
         (.setType (-> field :component :role)))
       (when-let [parameter (:parameter field)]
         (doto p
+          (.setImplementation (blank-as-nil (:typename parameter)))
           (.setAlias (blank-as-nil (:alias parameter)))
           (.setExpression (blank-as-nil (:expression parameter)))
           (.setDescription (blank-as-nil (:description parameter)))

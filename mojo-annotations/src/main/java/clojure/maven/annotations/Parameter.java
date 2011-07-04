@@ -1,4 +1,4 @@
-package maven.clojure.annotations;
+package clojure.maven.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -19,4 +19,5 @@ public @interface Parameter {
   String alias() default "";
   String expression() default "";
   String defaultValue() default "";
+  String typename() default "";
 }

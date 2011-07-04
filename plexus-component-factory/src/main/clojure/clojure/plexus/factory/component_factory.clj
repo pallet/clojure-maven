@@ -1,4 +1,4 @@
-(ns plexus.clojure.factory.component-factory
+(ns clojure.plexus.factory.component-factory
   "ComponentFactory for Plexus components implemented in clojure."
   (:require
    [clojure.string :as string]))

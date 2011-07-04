@@ -1,4 +1,4 @@
-package plexus.clojure.factory;
+package clojure.plexus.factory;
 
 import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.classworlds.ClassRealm;
@@ -23,7 +23,7 @@ public class ClojureComponentFactory
     try
     {
       ClassLoader cl = classRealm.getClassLoader();
-      Class loader = classRealm.loadClass("plexus.clojure.factory.ClojureLoader");
+      Class loader = classRealm.loadClass("clojure.plexus.factory.ClojureLoader");
       Method m = loader.getDeclaredMethod("instantiate",String.class);
 
       Thread.currentThread().setContextClassLoader(cl);
