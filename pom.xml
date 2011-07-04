@@ -56,6 +56,16 @@
 	    <target>1.5</target>
           </configuration>
         </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <charset>UTF-8</charset>
+            <docencoding>UTF-8</docencoding>
+            <docfilessubdirs>true</docfilessubdirs>
+            <source>1.5</source>
+            <sourcepath>${basedir}/src/main/java</sourcepath>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
