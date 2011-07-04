@@ -101,7 +101,7 @@ To write the mojo, you will need to make use of the annotations in
     <dependency>
       <groupId>org.cloudhoist</groupId>
       <artifactId>clojure-maven-mojo-annotations</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
 ```
 
@@ -112,7 +112,7 @@ And to be able to use the mojo, you need a dependency on
     <dependency>
       <groupId>org.cloudhoist</groupId>
       <artifactId>clojure-maven-plexus-component-factory</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
       <scope>runtime</scope>
     </dependency>
 ```
