@@ -28,14 +28,6 @@ public class ClojureComponentFactory
 
       Thread.currentThread().setContextClassLoader(cl);
       Object obj=m.invoke(loader,componentDescriptor.getImplementation());
-      if ((obj.getClass().getClassLoader() != cl) &&
-          (obj.getClass().getClassLoader().getParent() != cl) &&
-          (obj.getClass().getClassLoader().getParent().getParent() != cl))
-      {
-        throw new ComponentInstantiationException(
-          "Wrong classloader for clojure component: "
-          + componentDescriptor.getHumanReadableKey());
-      }
       return obj;
     }
     catch ( Exception e )
