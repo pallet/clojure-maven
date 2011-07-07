@@ -8,7 +8,7 @@
    [clojure.pprint :as pprint]
    classlojure)
   (:import
-   [clojure.maven.annotations Goal RequiresDependencyResolution]
+   [clojure.maven.annotations Goal Phase RequiresDependencyResolution]
    [org.apache.maven.plugin.descriptor
     MojoDescriptor
     Parameter
@@ -80,12 +80,14 @@
               mojo-descriptor#
               (fn [^java.lang.Class v#]
                 (let [^Goal goal# (.getAnnotation v# Goal)
+                      ^Phase phase# (.getAnnotation v# Phase)
                       ^RequiresDependencyResolution resolution#
                       (.getAnnotation v# RequiresDependencyResolution)]
                   (when-not goal#
                     (throw (IllegalArgumentException.
                             (str "No Goal annotation for " v#))))
-                  {:goal (.value goal#)
+                  {:goal (when goal# (.value goal#))
+                   :phase (when phase# (.value phase#))
                    :resolution (when resolution# (.value resolution#))
                    :implementation (.getName v#)
                    :fields (->>
@@ -102,7 +104,7 @@
                 v#)]
           (require '~try-ns)
           (->>
-           (ns-map (find-ns '~try-ns))
+           (ns-map '~try-ns)
            (map second)
            (filter
             #(and (not (var? %))
@@ -156,7 +158,7 @@
     p))
 
 (defn mojo-descriptor
-  [plugin-descriptor {:keys [implementation goal resolution fields] :as m}]
+  [plugin-descriptor {:keys [implementation goal resolution fields phase]}]
   (when-not goal
     (throw
      (IllegalArgumentException.
@@ -166,6 +168,7 @@
                      (.setLanguage "clojure")
                      (.setImplementation implementation)
                      (.setGoal goal)
+                     (.setPhase (blank-as-nil phase))
                      (.setThreadSafe false))]
     (when resolution
       (.setDependencyResolutionRequired descriptor resolution))
