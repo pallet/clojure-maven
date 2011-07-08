@@ -14,10 +14,6 @@
    [clojure.string :as string]
    classlojure))
 
-(defn -init []
-  [[CompilerOutputStyle/ONE_OUTPUT_FILE_PER_INPUT_FILE ".clj" ".class" nil]
-   nil])
-
 (defn absolute-filename [filename]
   (.getPath (java.io.File. filename)))
 
@@ -59,6 +55,10 @@
       (doto (.setAccessible true))
       (.invoke obj (into-array Object args))))
 
+(defn -init []
+  [[CompilerOutputStyle/ONE_OUTPUT_FILE_PER_INPUT_FILE ".clj" ".class" nil]
+   nil])
+
 (defn -compile
   [this ^CompilerConfiguration config]
   (let [output-dir (java.io.File. (.getOutputLocation config))
@@ -91,6 +91,7 @@
               cl
               `(binding [*compile-path* ~(.getOutputLocation config)]
                  (compile '~(symbol file-ns))))
+             nil
              (catch Exception e
                (let [msg (.getMessage e)
                      comps (when msg (re-find #".*\(.*:([0-9]+)\)$" msg))
