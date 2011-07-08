@@ -44,7 +44,7 @@
 
 (defn to-ns
   "Converts found mojo's into literal descriptor maps"
-  [base-path cl ^java.io.File file]
+  [base-path output-path cl ^java.io.File file]
   (when (and (.isFile file) (.endsWith (.getPath file) ".clj"))
     (let [path (.getPath file)
           path (.substring path (inc (count base-path)) (count path))
@@ -102,6 +102,8 @@
                          (isa? v# org.apache.maven.plugin.Mojo))
                 (flush)
                 v#)]
+          (binding [*compile-path* ~output-path]
+            (compile '~try-ns))
           (require '~try-ns)
           (->>
            (ns-map '~try-ns)
@@ -114,10 +116,10 @@
            doall))))))
 
 (defn process-source-tree
-  [cl ^String source]
+  [output-path cl ^String source]
   (let [dir (java.io.File. source)]
     (->>
-     (mapcat #(to-ns (.getPath dir) cl %) (file-seq dir))
+     (mapcat #(to-ns (.getPath dir) output-path cl %) (file-seq dir))
      (filter identity))))
 
 (defn sources
@@ -181,13 +183,17 @@
 (defn plugin-classes
   [plugin-descriptor project]
   (let [sources (distinct (sources project))
+        output-path (java.io.File. (.. project getBuild getOutputDirectory))
         cl (apply
             classlojure/classlojure
             (map
              filename-to-url-string
              (concat sources (.getCompileClasspathElements project))))]
+    (when-not (.exists output-path)
+      (.mkdirs output-path))
     (java.util.ArrayList.
      (->>
       sources
-      (mapcat #(process-source-tree cl %))
+      (mapcat
+       #(process-source-tree (.getAbsolutePath output-path) cl %))
       (map #(mojo-descriptor plugin-descriptor %))))))
