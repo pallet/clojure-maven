@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.cloudhoist</groupId>
     <artifactId>clojure-maven</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.2.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>clojure-maven-plexus-compiler</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.2.0</version>
   <name>clojure-maven-plexus-compiler</name>
   <description>Clojure Compiler Component</description>
 
