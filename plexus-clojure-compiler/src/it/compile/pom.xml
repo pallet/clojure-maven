@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.cloudhoist.plugin.test</groupId>
+  <artifactId>clojure-compiler-test</artifactId>
+  <version>0.1.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <build>
+    <sourceDirectory>src/main/clojure</sourceDirectory>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <id>default-compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <phase>compile</phase>
+            <id>clojure-compile</id>
+            <configuration>
+              <compilerId>clojure</compilerId>
+            </configuration>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.cloudhoist</groupId>
+            <artifactId>clojure-maven-plexus-compiler</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+  </dependencies>
+</project>

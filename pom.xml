@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.cloudhoist</groupId>
   <artifactId>clojure-maven</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Maven clojure components</name>
@@ -33,6 +33,7 @@
     <module>mojo-annotations</module>
     <module>mojo-descriptor-extractor</module>
     <module>plexus-component-factory</module>
+    <module>plexus-clojure-compiler</module>
   </modules>
 
   <build>
