@@ -34,6 +34,7 @@
     <module>mojo-descriptor-extractor</module>
     <module>plexus-component-factory</module>
     <module>plexus-clojure-compiler</module>
+    <module>plexus-clojurescript-compiler</module>
   </modules>
 
   <build>
