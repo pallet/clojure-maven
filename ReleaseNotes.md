@@ -1,6 +1,10 @@
 # Release Notes
 
-Current release is 0.2.0.
+Current release is 0.3.0.
+
+## 0.3.0
+
+- Add a ClojureScript compiler component
 
 ## 0.2.0
 
