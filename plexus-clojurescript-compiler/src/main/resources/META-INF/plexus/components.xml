@@ -1,0 +1,9 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.codehaus.plexus.compiler.Compiler</role>
+      <implementation>clojure.plexus.compiler.ClojureScriptCompiler</implementation>
+      <role-hint>clojurescript</role-hint>
+    </component>
+  </components>
+</component-set>
