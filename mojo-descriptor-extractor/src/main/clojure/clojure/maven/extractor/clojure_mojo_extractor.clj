@@ -4,6 +4,7 @@
    rather than javadoc annotations."
   (:require
    [clojure.contrib.find-namespaces :as find-ns]
+   [clojure.java.io :as io]
    [clojure.string :as string]
    [clojure.pprint :as pprint]
    classlojure)
@@ -183,7 +184,9 @@
 (defn plugin-classes
   [plugin-descriptor project]
   (let [sources (distinct (sources project))
-        output-path (java.io.File. (.. project getBuild getOutputDirectory))
+        output-path (io/file
+                     (.. project getBuild getOutputDirectory)
+                     ".." "plugin-classes" )
         cl (apply
             classlojure/classlojure
             (map
