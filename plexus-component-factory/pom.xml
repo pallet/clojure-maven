@@ -5,14 +5,14 @@
   <parent>
     <groupId>org.cloudhoist</groupId>
     <artifactId>clojure-maven</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.3.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>clojure-maven-plexus-component-factory</artifactId>
   <name>clojure-maven-plexus-component-factory</name>
   <description>Plexus component factory for clojure components</description>
-  <version>0.3.1-SNAPSHOT</version>
+  <version>0.3.1</version>
 
   <build>
     <resources>
