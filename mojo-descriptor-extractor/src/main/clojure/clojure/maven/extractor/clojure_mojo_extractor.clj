@@ -3,10 +3,8 @@
    org.apache.maven.tools.plugin.extractor.java, but using java annotations
    rather than javadoc annotations."
   (:require
-   [clojure.contrib.find-namespaces :as find-ns]
    [clojure.java.io :as io]
    [clojure.string :as string]
-   [clojure.pprint :as pprint]
    classlojure)
   (:import
    [clojure.maven.annotations Goal Phase RequiresDependencyResolution]
