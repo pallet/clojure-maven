@@ -101,8 +101,6 @@
                          (isa? v# org.apache.maven.plugin.Mojo))
                 (flush)
                 v#)]
-          (binding [*compile-path* ~output-path]
-            (compile '~try-ns))
           (require '~try-ns)
           (->>
            (ns-map '~try-ns)
