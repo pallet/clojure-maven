@@ -94,4 +94,7 @@
     </repository>
   </repositories>
 
+  <properties>
+    <clojure.version>1.2.1</clojure.version>
+  </properties>
 </project>
