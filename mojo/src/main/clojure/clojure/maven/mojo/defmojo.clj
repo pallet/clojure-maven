@@ -3,38 +3,34 @@
    [clojure.string :as str]
    [clojure.maven.mojo.log :as log])
   (:import
-   org.apache.maven.plugin.ContextEnabled
-   org.apache.maven.plugin.Mojo
-   org.apache.maven.plugin.MojoExecutionException))
+   [org.apache.maven.plugin ContextEnabled Mojo MojoExecutionException]))
 
-(defn assert-arg [b msg]
-  (if-not b (throw (IllegalArgumentException. msg))
-          b))
+(defn assert-arg
+  [b ^String msg]
+  (if-not b
+    (throw (IllegalArgumentException. msg))
+    b))
 
 (defn validate-param [[param opts]]
-  (assert-arg (and (symbol? param) (map? opts))
-          "Each Mojo parameter must be a symbol followed by a map of options")
+  (assert-arg
+   (and (symbol? param) (map? opts))
+   "Each Mojo parameter must be a symbol followed by a map of options")
   [param opts])
 
-(fn [[param options]]
-                      (and (symbol? param) (map? options)))
 (defn key->annotation
-  "Convert a keyword name (ie: :requires-dependency) to the
- corresponding camelcase symbol (ie: RequiresDependency) and
-validate it's a Java annotation"
+  "Convert a keyword name (e.g. :requires-dependency) to the corresponding
+camel-case symbol (e.g. RequiresDependency) and validate it's a Java
+annotation."
   [k]
   (let [name (str "clojure.maven.annotations."
                   (-> (name k)
                       str/capitalize
-                      (str/replace #"-([a-zA-Z])"
-                                   #(str/upper-case (second
-                                                     %)))))
-        fail-msg (str "Cannot find corresponding Mojo annotation for "
-                  k)]
+                      (str/replace
+                       #"-([a-zA-Z])" #(str/upper-case (second %)))))
+        fail-msg (str "Cannot find corresponding Mojo annotation for " k)]
     (try (assert-arg (.isAnnotation (Class/forName name)) fail-msg)
          (catch ClassNotFoundException ex
-           (assert-arg false fail-msg)))
-
+           (throw (IllegalArgumentException. fail-msg))))
     (symbol name)))
 
 
@@ -48,28 +44,25 @@ validate it's a Java annotation"
 
 (defmacro defmojo
   "Define a Mojo with the given name. This defines some common fields and
-   leaves you to just specify a body for the execute function.
-   Example:
+leaves you to just specify a body for the execute function.
+Example:
 
-   (defmojo MyClojureMojo
+    (defmojo MyClojureMojo
 
-   {:goal \"simple\"
-    :requires-dependency-resolution \"test\"
-    :phase \"validate\" }
+     {:goal \"simple\"
+      :requires-dependency-resolution \"test\"
+      :phase \"validate\" }
 
-    ;; Mojo parameters
-    [base-dir   {:expression \"${basedir}\" :required true :readonly true}
-     project    {:expression \"${project}\" :required true :readonly true}
-     output-dir {:defaultValue \"${project.build.outputDirectory}\"
-                 :required true}]
+      ;; Mojo parameters
+     [base-dir   {:expression \"${basedir}\" :required true :readonly true}
+      project    {:expression \"${project}\" :required true :readonly true}
+      output-dir {:defaultValue \"${project.build.outputDirectory}\"
+                  :required true}]
 
-    (do
+     (do
        (println \"Hello Maven World!\")
-       (println \"This is project \" (.getName project))))
-"
-
+       (println \"This is project \" (.getName project))))"
   [mojoType annotations-map parameters & body]
-
   (assert-arg (map? annotations-map)
               "First arg must be a map of Mojo annotations")
   (assert-arg (vector? parameters)
@@ -78,9 +71,7 @@ validate it's a Java annotation"
   (let [mojo-annotations (into {} (map (fn [[k v]] [(key->annotation k) v])
                                        annotations-map))
         params (map validate-param (partition-all 2 parameters))
-        ;body (mapcat identity rest)
         body (validate-body body)]
-
     `(do
        (deftype
            ;; Mojo annotations
@@ -94,9 +85,8 @@ validate it's a Java annotation"
                                 {'clojure.maven.annotations.Parameter options}))
                    params)
               ;; pre-defined parameters
-              `( ~(with-meta 'log {:volatile-mutable true})
-                 ~'plugin-context
-                 )))
+              `(~(with-meta 'log {:volatile-mutable true})
+                ~'plugin-context)))
 
          ;; Mojo predefined methods
          Mojo
@@ -111,15 +101,11 @@ validate it's a Java annotation"
          ;; Plugin-Context handling
          ContextEnabled
          ~'(setPluginContext [_ context] (reset! plugin-context context))
-         ~'(getPluginContext [_] @plugin-context)
-         )
+         ~'(getPluginContext [_] @plugin-context))
 
 
        (defn ~(symbol (str "make-" mojoType))
          "Function to provide a no argument constructor"
          []
          (~(symbol (str mojoType "."))
-          ~@(repeat (count params) nil) nil (atom nil)))
-
-       )
-    ))
+          ~@(repeat (count params) nil) nil (atom nil))))))
