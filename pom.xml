@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.cloudhoist</groupId>
-    <artifactId>pallet-pom</artifactId>
-    <version>0.4.3</version>
+    <artifactId>parent-pom</artifactId>
+    <version>0.1.2-SNAPSHOT</version>
   </parent>
   <groupId>org.cloudhoist</groupId>
   <artifactId>clojure-maven</artifactId>
@@ -70,6 +70,13 @@
             <sourcepath>${basedir}/src/main/java</sourcepath>
           </configuration>
         </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.0</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -96,5 +103,8 @@
 
   <properties>
     <clojure.version>1.2.1</clojure.version>
+    <codox.version>0.4.0</codox.version>
+    <ritz.version>0.2.0</ritz.version>
+    <zi.version>0.4.5</zi.version>
   </properties>
 </project>

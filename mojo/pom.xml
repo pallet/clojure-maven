@@ -20,14 +20,42 @@
       <artifactId>clojure</artifactId>
       <version>${clojure.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.cloudhoist</groupId>
+      <artifactId>clojure-maven-mojo-annotations</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-	<directory>src/main/clojure</directory>
-      </resource>
-    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.cloudhoist.plugin</groupId>
+        <artifactId>zi</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>sonatype-nexus-releases</id>
+      <name>Sonatype Nexus Releases</name>
+      <url>http://oss.sonatype.org/content/repositories/releases</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <maven.version>3.0.4</maven.version>
+  </properties>
 </project>
