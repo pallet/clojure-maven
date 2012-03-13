@@ -69,6 +69,41 @@ Annotations are used to get values from the pom.
       (SimpleMojo. nil nil nil nil nil (atom nil)))
 ```
 
+For convenience, you may instead use the `defmojo` macro:
+
+```clojure
+    (ns example.simple
+      "Simple Mojo"
+      (:use clojure.maven.mojo.defmojo
+            clojure.maven.mojo.log))
+
+    (defmojo SimpleMojo
+
+      {:goal "simple"
+       :requires-dependency-resolution "test" }
+
+      ;; parameters
+      [base-directory     {:expression "${basedir}" :required true :readonly true}
+
+       classpath-elements {:required true :readonly true
+                           :description "Compile classpath"
+                           :defaultValue "${project.compileClasspathElements}" }
+
+       test-classpath-elements {:required true :readonly true
+                                :defaultValue "${project.testClasspathElements}" } ]
+
+      ;; Body that is executed when Mojo is run
+      (do
+         (info "Hi Maven World!")
+         (info (str "basedir is: " base-directory))))
+```
+
+Note1: `defmojo` implicitly defines params 'log' and 'plugin-context' for you.
+
+Note2: `clojure.maven.mojo.log` defines convenience functions `debug`, `info`, etc.
+for you to send messages to Maven's log stream.
+
+
 ### pom.xml
 
 To write a plugin in clojure, your pom packaging should be set to `maven-plugin`.
