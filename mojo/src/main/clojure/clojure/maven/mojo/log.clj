@@ -1,12 +1,18 @@
 (ns clojure.maven.mojo.log
   "Logging utilities for plugin development."
   (:use
-    [clojure.string :only (capitalize)]))
+    [clojure.string :only (capitalize split join)])
+  (:import
+   org.apache.maven.plugin.logging.Log))
 
-(def ^{:dynamic true} *plexus-log* nil)
+(def ^{:dynamic true :tag Log} *plexus-log* nil)
+
+(defn camel-case
+  [s]
+  (->> (split s #"-") (map capitalize) join))
 
 (defmacro log-level? [level]
-  (let [log-level-fn (str "is" (capitalize (name level)) "Enabled")]
+  (let [log-level-fn (str "is" (camel-case (name level)) "Enabled")]
     `(and
        (not (nil? *plexus-log*))
        (. *plexus-log* ~(symbol log-level-fn)))))
