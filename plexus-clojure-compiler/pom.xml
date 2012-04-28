@@ -25,7 +25,7 @@
     <dependency>
       <groupId>classlojure</groupId>
       <artifactId>classlojure</artifactId>
-      <version>0.5.2</version>
+      <version>0.6.3</version>
     </dependency>
 
     <dependency>
@@ -67,11 +67,23 @@
         <artifactId>zi</artifactId>
         <executions>
           <execution>
+            <id>default-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+          </execution>
+          <execution>
             <id>default-compile</id>
             <phase>compile</phase>
             <goals>
               <goal>compile</goal>
             </goals>
+            <configuration>
+              <includes>
+                <include>**/ClojureCompiler.clj</include>
+              </includes>
+            </configuration>
           </execution>
         </executions>
       </plugin>
