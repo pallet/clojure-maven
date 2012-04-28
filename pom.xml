@@ -90,17 +90,6 @@
     </developer>
   </developers>
 
-  <repositories>
-    <repository>
-      <id>sonatype</id>
-      <url>http://oss.sonatype.org/content/repositories/releases</url>
-    </repository>
-    <repository>
-      <id>clojars</id>
-      <url>http://clojars.org/repo</url>
-    </repository>
-  </repositories>
-
   <properties>
     <clojure.version>1.2.1</clojure.version>
     <codox.version>0.4.0</codox.version>
