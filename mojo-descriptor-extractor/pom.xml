@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.cloudhoist</groupId>
     <artifactId>clojure-maven</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>clojure-maven-mojo-descriptor-extractor</artifactId>
-  <version>0.3.2</version>
+  <version>0.3.3-SNAPSHOT</version>
   <name>clojure-maven-mojo-descriptor-extractor</name>
   <description>Descriptor extractor for Maven Mojo's written in Clojure.</description>
 
