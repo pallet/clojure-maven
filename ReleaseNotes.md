@@ -1,6 +1,34 @@
 # Release Notes
 
-Current release is 0.3.1.
+Current release is 0.3.2.
+
+## 0.3.2
+
+### Features
+
+- New defmojo macro. Syntactic sugar for defining mojos in clojure
+
+### Fixes
+
+- Update to recent classlojure and separate ClojureCompiler implementation
+  The separation of ClojureCompiler implementation allows us to control the
+  transitive compilation of it's dependencies.
+
+- Add .ritz-exception-filters to .gitignore
+
+- Add release scripts
+
+- Update to use zi for building and running tests
+
+- Remove superfluous compile
+
+- Ensure clojure version is consistent across sub-projects
+
+- Add new clojure-maven-mojo artifact for defmojo
+
+- Fix typo on clojars repository URL
+
+- Remove unused clojure.contrib dependency
 
 ## 0.3.1
 
