@@ -123,7 +123,7 @@ configured.
           <dependency>
             <groupId>org.cloudhoist</groupId>
             <artifactId>clojure-maven-mojo-descriptor-extractor</artifactId>
-            <version>0.3.1</version>
+            <version>0.3.2</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -136,7 +136,7 @@ To write the mojo, you will need to make use of the annotations in
     <dependency>
       <groupId>org.cloudhoist</groupId>
       <artifactId>clojure-maven-mojo-annotations</artifactId>
-      <version>0.3.1</version>
+      <version>0.3.2</version>
     </dependency>
 ```
 
@@ -147,7 +147,7 @@ And to be able to use the mojo, you need a dependency on
     <dependency>
       <groupId>org.cloudhoist</groupId>
       <artifactId>clojure-maven-plexus-component-factory</artifactId>
-      <version>0.3.1</version>
+      <version>0.3.2</version>
       <scope>runtime</scope>
     </dependency>
 ```
