@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.cloudhoist</groupId>
-    <artifactId>pallet-pom</artifactId>
-    <version>0.4.3</version>
+    <artifactId>parent-pom</artifactId>
+    <version>0.1.2</version>
   </parent>
   <groupId>org.cloudhoist</groupId>
   <artifactId>clojure-maven</artifactId>
-  <version>0.3.2-SNAPSHOT</version>
+  <version>0.3.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Maven clojure components</name>
@@ -35,6 +35,7 @@
     <module>plexus-component-factory</module>
     <module>plexus-clojure-compiler</module>
     <module>plexus-clojurescript-compiler</module>
+    <module>mojo</module>
   </modules>
 
   <build>
@@ -69,6 +70,13 @@
             <sourcepath>${basedir}/src/main/java</sourcepath>
           </configuration>
         </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.0</version>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -82,15 +90,10 @@
     </developer>
   </developers>
 
-  <repositories>
-    <repository>
-      <id>sonatype</id>
-      <url>http://oss.sonatype.org/content/repositories/releases</url>
-    </repository>
-    <repository>
-      <id>clojars</id>
-      <url>http://clojars.org/repos</url>
-    </repository>
-  </repositories>
-
+  <properties>
+    <clojure.version>1.2.1</clojure.version>
+    <codox.version>0.4.0</codox.version>
+    <ritz.version>0.2.0</ritz.version>
+    <zi.version>0.4.5</zi.version>
+  </properties>
 </project>
