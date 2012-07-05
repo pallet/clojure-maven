@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.cloudhoist</groupId>
     <artifactId>clojure-maven</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>clojure-maven-mojo-annotations</artifactId>
-  <version>0.3.3</version>
+  <version>0.3.4-SNAPSHOT</version>
   <name>clojure-maven-mojo-annotations</name>
   <description>Annotations for maven mojo plugins written in clojure</description>
 
