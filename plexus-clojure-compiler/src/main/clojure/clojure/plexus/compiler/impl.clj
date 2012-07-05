@@ -7,7 +7,9 @@
    org.codehaus.plexus.compiler.CompilerOutputStyle)
   (:require
    [clojure.string :as string]
-   [classlojure.core :as classlojure]))
+   [classlojure.core :as classlojure])
+  (:use
+   [clojure.stacktrace :only [root-cause]]))
 
 (defn absolute-filename [filename]
   (.getPath (java.io.File. filename)))
@@ -54,6 +56,20 @@
   [[CompilerOutputStyle/ONE_OUTPUT_FILE_PER_INPUT_FILE ".clj" ".class" nil]
    nil])
 
+(defn- find-line [^Exception e]
+  (loop [e e
+         msg (.getMessage e)]
+    (let [msg (or (.getMessage e) msg)
+          comps (when msg (re-find #".*\(.*:([0-9]+)\)$" msg))
+          line (if-let [line-str (second comps)]
+                 (Integer/parseInt line-str)
+                 0)]
+      (if (and comps (pos? line))
+        [msg line]
+        (if-let [cause (.getCause e)]
+          (recur cause msg)
+          [msg 0])))))
+
 (defn -compile
   [this ^CompilerConfiguration config]
   (let [output-dir (java.io.File. (.getOutputLocation config))
@@ -88,11 +104,7 @@
                  (compile '~(symbol file-ns))))
              nil
              (catch Exception e
-               (let [msg (.getMessage e)
-                     comps (when msg (re-find #".*\(.*:([0-9]+)\)$" msg))
-                     line (if-let [line-str (second comps)]
-                            (Integer/parseInt line-str)
-                            0)]
+               (let [[msg line] (find-line e)]
                  (CompilerError. source true line 0 line 0 msg)))))
          (filter identity)
          (java.util.ArrayList.))))))

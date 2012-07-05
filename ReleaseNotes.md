@@ -1,6 +1,10 @@
 # Release Notes
 
-Current release is 0.3.2.
+Current release is 0.3.3.
+
+## 0.3.3
+
+- Fix line reporting in clojure compiler plugin
 
 ## 0.3.2
 
