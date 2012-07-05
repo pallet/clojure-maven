@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.cloudhoist</groupId>
     <artifactId>clojure-maven</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
+    <version>0.3.4-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>clojure-maven-mojo</artifactId>
-  <version>0.3.3-SNAPSHOT</version>
+  <version>0.3.4-SNAPSHOT</version>
   <name>clojure-maven-mojo</name>
   <description>Clojure code to facilitate creation of mojos</description>
 
