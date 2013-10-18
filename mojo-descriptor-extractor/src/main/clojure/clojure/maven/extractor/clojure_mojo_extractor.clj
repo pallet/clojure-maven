@@ -23,6 +23,7 @@
   (symbol (-> file
               (.replaceFirst ".clj$" "")
               (.replaceAll "/" ".")
+              (.replaceAll "\\\\" ".")
               (.replaceAll "_" "-"))))
 
 (defn test-var [v]
