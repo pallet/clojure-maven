@@ -34,7 +34,9 @@
   (-> (reduce #(string/replace %1 %2 "") filename locations)
       (string/replace ".clj" "")
       (string/replace "_" "-")
+      (string/replace #"^\\" "")
       (string/replace #"^/" "")
+      (string/replace "\\" ".")
       (string/replace "/" ".")))
 
 (defn call-method
